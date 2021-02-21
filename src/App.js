@@ -4,11 +4,13 @@ import logo from "./resources/images/COVID-19.jpg";
 import CountrySelector from "./components/CountrySelector";
 import { fetchGlobalApiData, fetchSpecificCountryData } from "./api/index";
 import { useEffect, useState } from "react";
+import Graph from "./components/Graph";
 
 function App() {
   const [globalData, setGlobalData] = useState({});
   const [complete, setComplete] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("All Countries");
+  const [graphData, setGraphData] = useState({});
 
   const handleChange = (country) => {
     setComplete(false);
@@ -16,6 +18,16 @@ function App() {
       const data = await fetchSpecificCountryData(country);
       setGlobalData(data);
       setComplete(true);
+      setGraphData({
+        labels: ["Recovered", "Deaths", "Active"],
+        datasets: [
+          {
+            label: ["Recovered", "Deaths", "Active"],
+            backgroundColor: ["green", "red", "blue"],
+            data: [data.recovered, data.deaths, data.active],
+          },
+        ],
+      });
     };
     fetchData();
     setSelectedCountry(country);
@@ -29,6 +41,16 @@ function App() {
       } else {
         data = await fetchSpecificCountryData(selectedCountry);
       }
+      setGraphData({
+        labels: ["Recovered", "Deaths", "Active"],
+        datasets: [
+          {
+            label: ["Recovered", "Deaths", "Active"],
+            backgroundColor: ["green", "red", "blue"],
+            data: [data.recovered, data.deaths, data.active],
+          },
+        ],
+      });
       setGlobalData(data);
       setComplete(true);
     }
@@ -43,6 +65,11 @@ function App() {
       <CountrySelector
         selectedCountry={selectedCountry}
         handleChange={handleChange}
+      />
+      <Graph
+        graphData={graphData}
+        complete={complete}
+        country={selectedCountry}
       />
     </div>
   );
