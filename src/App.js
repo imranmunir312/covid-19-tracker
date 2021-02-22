@@ -9,7 +9,7 @@ import Graph from "./components/Graph";
 function App() {
   const [globalData, setGlobalData] = useState({});
   const [complete, setComplete] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState("All Countries");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [graphData, setGraphData] = useState({});
 
   const handleChange = (country) => {
@@ -19,12 +19,22 @@ function App() {
       setGlobalData(data);
       setComplete(true);
       setGraphData({
-        labels: ["Recovered", "Deaths", "Active"],
+        labels: ["Covid 19 Cases"],
         datasets: [
           {
-            label: ["Recovered", "Deaths", "Active"],
-            backgroundColor: ["green", "red", "blue"],
-            data: [data.recovered, data.deaths, data.active],
+            label: ["Recovered"],
+            backgroundColor: ["green"],
+            data: [data.recovered],
+          },
+          {
+            label: ["Deaths"],
+            backgroundColor: ["red"],
+            data: [data.deaths],
+          },
+          {
+            label: ["Active"],
+            backgroundColor: ["blue"],
+            data: [data.active],
           },
         ],
       });
@@ -36,18 +46,28 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       let data = null;
-      if (selectedCountry === "All Countries") {
+      if (selectedCountry === "All Countries" || selectedCountry === "") {
         data = await fetchGlobalApiData();
       } else {
         data = await fetchSpecificCountryData(selectedCountry);
       }
       setGraphData({
-        labels: ["Recovered", "Deaths", "Active"],
+        labels: ["Covid 19 Cases"],
         datasets: [
           {
-            label: ["Recovered", "Deaths", "Active"],
-            backgroundColor: ["green", "red", "blue"],
-            data: [data.recovered, data.deaths, data.active],
+            label: ["Recovered"],
+            backgroundColor: ["green"],
+            data: [data.recovered],
+          },
+          {
+            label: ["Deaths"],
+            backgroundColor: ["red"],
+            data: [data.deaths],
+          },
+          {
+            label: ["Active"],
+            backgroundColor: ["blue"],
+            data: [data.active],
           },
         ],
       });
@@ -56,7 +76,7 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }, [complete]);
 
   return (
     <div className="App">

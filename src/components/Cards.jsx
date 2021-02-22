@@ -59,6 +59,16 @@ const Cards = ({ cardData, complete }) => {
                 <Typography variant="h5" component="h2">
                   <CountUp end={cardData.recovered} duration={5} />
                 </Typography>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Today Recovered Cases
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  <CountUp end={cardData.todayRecovered} duration={5} />
+                </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                   {new Date(cardData.updated).toDateString()}
                 </Typography>
@@ -83,6 +93,16 @@ const Cards = ({ cardData, complete }) => {
                 <Typography variant="h5" component="h2">
                   <CountUp end={cardData.deaths} duration={5} />
                 </Typography>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Today Deaths
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  <CountUp end={cardData.todayDeaths} duration={5} />
+                </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                   {new Date(cardData.updated).toDateString()}
                 </Typography>
@@ -106,6 +126,16 @@ const Cards = ({ cardData, complete }) => {
                 </Typography>
                 <Typography variant="h5" component="h2">
                   <CountUp end={cardData.active} duration={5} />
+                </Typography>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  Today New Cases
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  <CountUp end={cardData.todayCases} duration={5} />
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                   {new Date(cardData.updated).toDateString()}
